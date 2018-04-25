@@ -106,6 +106,7 @@ public class MineFragment extends Fragment {
         rv1.setAdapter(new Rv1Adapter(getActivity(), rv1DataList));
     }
 
+
     private void init(View view) {
         rv1 = (RecyclerView) view.findViewById(R.id.rv1_mine);
         rv2 = (RecyclerView) view.findViewById(R.id.rv2_mine);
