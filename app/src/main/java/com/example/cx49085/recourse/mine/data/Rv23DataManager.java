@@ -2,7 +2,6 @@ package com.example.cx49085.recourse.mine.data;
 
 import com.example.cx49085.recourse.R;
 import com.example.cx49085.recourse.mine.data.entity.Rv23Data;
-import com.example.cx49085.recourse.mine.data.entity.Rv23Data;
 
 import java.util.ArrayList;
 import java.util.List;

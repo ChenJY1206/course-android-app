@@ -2,7 +2,6 @@ package com.example.cx49085.recourse.download.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.cx49085.recourse.R;
 import com.example.cx49085.recourse.download.data.entity.DownloadData;
-import com.example.cx49085.recourse.home.adapter.RecommedAdapter;
 import com.example.cx49085.recourse.util.GlideRoundTransform;
 
 import java.util.List;

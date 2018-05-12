@@ -1,7 +1,6 @@
 package com.example.cx49085.recourse.mine;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.cx49085.recourse.MainActivity;
 import com.example.cx49085.recourse.R;
 import com.example.cx49085.recourse.mine.myinfo.Mine_info;
 import com.example.cx49085.recourse.util.OnRecyclerviewItemClickListener;
@@ -51,7 +49,6 @@ public class MineFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
         init(view);
         setRv1();
-
         setRv2();
         setRv3();
         setRv4();
@@ -73,7 +70,18 @@ public class MineFragment extends Fragment {
             Log.e(TAG, "rvData:" + getResources().getString(rv23DataList.get(i).getTitle()));
 
         }
-        rv3.setAdapter(new Rv23Adapter(getActivity(), rv23DataList));
+        Rv23Adapter adapter = new Rv23Adapter(getActivity(), rv23DataList);
+        adapter.setmOnRecyclerviewItemClickListener(new OnRecyclerviewItemClickListener() {
+            @Override
+            public void onItemClickListener(View v, int position) {
+                //这里的view就是我们点击的view  position就是点击的position
+                Toast.makeText(getContext(), " 点击了 Rv3 " + position, Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(),Mine_info.class));
+                //  getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+
+            }
+        });
+        rv3.setAdapter(adapter);
         rv3.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
     }
 
@@ -89,7 +97,7 @@ public class MineFragment extends Fragment {
             @Override
             public void onItemClickListener(View v, int position) {
                 //这里的view就是我们点击的view  position就是点击的position
-                Toast.makeText(getContext(), " 点击了 " + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), " 点击了Rv2 " + position, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getActivity(),Mine_info.class));
               //  getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 
@@ -103,7 +111,18 @@ public class MineFragment extends Fragment {
     private void setRv1() {
         rv1.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         List<Rv1Data> rv1DataList = Rv1DataManager.getRv1DataList();
-        rv1.setAdapter(new Rv1Adapter(getActivity(), rv1DataList));
+        Rv1Adapter adapter = new Rv1Adapter(getActivity(), rv1DataList);
+        adapter.setmOnRecyclerviewItemClickListener(new OnRecyclerviewItemClickListener() {
+            @Override
+            public void onItemClickListener(View v, int position) {
+                //这里的view就是我们点击的view  position就是点击的position
+                Toast.makeText(getContext(), " 点击了 Rv1:" + position, Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(),Mine_info.class));
+                //  getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+
+            }
+        });
+        rv1.setAdapter(adapter);
     }
 
 

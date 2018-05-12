@@ -18,12 +18,11 @@ public class HomeDataManager {
     private static List<RecommendData> recommendDatas = new ArrayList<RecommendData>();
 
 
-
     private static String[] names = {
             "巴黎高等商学院第二届金融与统计学大会",
             "巴黎高等商学院公开课-决策统计学",
             "概率论与数理统计",
-           "国际贸易理论与实务",
+            "国际贸易理论与实务",
             "国际投资学",
             "货币银行学"
     };
@@ -43,35 +42,32 @@ public class HomeDataManager {
             "共6课时",
             "共16课时",
     };
-    public static List<Uri> getBannerImages()
-    {
+
+    public static List<Uri> getBannerImages() {
         for (int i = 1; i <= 6; i++) {
-            Uri uri = Uri.parse("http://120.25.204.86:8080/shudongshuo/images/a26/"+i+"/img3.jpg");
+            Uri uri = Uri.parse("http://120.25.204.86:8080/shudongshuo/images/a26/" + i + "/img3.jpg");
             bannerImages.add(uri);
         }
         return bannerImages;
     }
-    
-    public static List<String> getRecommendImages()
-    {
+
+    public static List<String> getRecommendImages() {
         for (int i = 1; i < 7; i++) {
-            recommendImages.add("http://120.25.204.86:8080/shudongshuo/images/a26/"+i+"/img1.jpg");
+            recommendImages.add("http://120.25.204.86:8080/shudongshuo/images/a26/" + i + "/img1.jpg");
         }
         return recommendImages;
     }
 
-    public static List<String> getRecommendTitles()
-    {
+    public static List<String> getRecommendTitles() {
         for (int i = 0; i < 6; i++) {
             recommendTitles.add(names[i]);
         }
         return recommendTitles;
     }
 
-    public static List<RecommendData> getRecommendDatas()
-    {
+    public static List<RecommendData> getRecommendDatas() {
         for (int i = 0; i < names.length; i++) {
-            recommendDatas.add(new RecommendData(getRecommendImages().get(i),getRecommendTitles().get(i),courses_num[i],course_details[i]));
+            recommendDatas.add(new RecommendData(getRecommendImages().get(i), getRecommendTitles().get(i), courses_num[i], course_details[i]));
         }
         return recommendDatas;
     }

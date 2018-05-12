@@ -13,13 +13,10 @@ import android.view.ViewGroup;
 import com.example.cx49085.recourse.R;
 import com.example.cx49085.recourse.download.adapter.DownloadAdapter;
 import com.example.cx49085.recourse.download.data.entity.DownloadData;
-import com.example.cx49085.recourse.home.adapter.RecommedAdapter;
-import com.example.cx49085.recourse.home.data.entity.RecommendData;
 
 import java.util.List;
 
 import static com.example.cx49085.recourse.download.data.DownloadDataManager.getDownloadList;
-import static com.example.cx49085.recourse.home.data.HomeDataManager.getRecommendDatas;
 
 /**
  * A simple {@link Fragment} subclass.
