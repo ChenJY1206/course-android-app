@@ -39,7 +39,7 @@ public class DataUtil {
             );
             videoList.add(video);
 
-            Log.v(TAG, "result-------------" + video.toString());
+            Log.v(TAG, "video-------------" + video.toString());
         }
         return videoList;
     }

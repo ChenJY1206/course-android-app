@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.cx49085.recourse.R;
 import com.example.cx49085.recourse.community.data.entity.NoteData;
+import com.example.cx49085.recourse.community.data.entity.QuestionData;
 
 import java.util.List;
 
@@ -36,13 +37,28 @@ public class NoteAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((ViewHolder)holder).title.setText(l.get(position).getTitle());
-        ((ViewHolder)holder).info.setText(l.get(position).getInfo());
-        ((ViewHolder)holder).goodNum.setText(String.valueOf(l.get(position).getGoodNum()));
-        ((ViewHolder)holder).broswe.setText(String.valueOf(l.get(position).getBrowseNum()));
-        ((ViewHolder)holder).time.setText(l.get(position).getTime());
-        ((ViewHolder)holder).username.setText(l.get(position).getUsername());
-        ((ViewHolder)holder).head.setImageResource(l.get(position).getImg());
+        ((ViewHolder) holder).title.setText(l.get(position).getTitle());
+        ((ViewHolder) holder).info.setText(l.get(position).getInfo());
+        ((ViewHolder) holder).goodNum.setText(String.valueOf(l.get(position).getGoodNum()));
+        ((ViewHolder) holder).broswe.setText(String.valueOf(l.get(position).getBrowseNum()));
+        ((ViewHolder) holder).time.setText(l.get(position).getTime());
+        ((ViewHolder) holder).username.setText(l.get(position).getUsername());
+        ((ViewHolder) holder).head.setImageResource(l.get(position).getImg());
+    }
+
+    //下面两个方法提供给页面刷新和加载时调用
+    public void add(List<NoteData> addlist) {
+        //增加数据
+        int position = addlist.size();
+        l.addAll(1, addlist);
+        notifyItemInserted(position);
+    }
+
+    public void refresh(List<NoteData> newlist) {
+        //刷新数据
+        l.removeAll(l);
+        l.addAll(newlist);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -58,15 +74,16 @@ public class NoteAdapter extends RecyclerView.Adapter {
         private TextView goodNum;
         private TextView broswe;
         private CircleImageView head;
+
         public ViewHolder(View itemView) {
             super(itemView);
-            title = (TextView)itemView.findViewById(R.id.item_note_title);
-            info = (TextView)itemView.findViewById(R.id.item_note_info);
-            goodNum = (TextView)itemView.findViewById(R.id.item_note_good_num);
-            broswe = (TextView)itemView.findViewById(R.id.item_note_browse_num);
-            time = (TextView)itemView.findViewById(R.id.item_note_time);
-            username = (TextView)itemView.findViewById(R.id.item_note_user_id);
-            head = (CircleImageView)itemView.findViewById(R.id.item_note_head);
+            title = (TextView) itemView.findViewById(R.id.item_note_title);
+            info = (TextView) itemView.findViewById(R.id.item_note_info);
+            goodNum = (TextView) itemView.findViewById(R.id.item_note_good_num);
+            broswe = (TextView) itemView.findViewById(R.id.item_note_browse_num);
+            time = (TextView) itemView.findViewById(R.id.item_note_time);
+            username = (TextView) itemView.findViewById(R.id.item_note_user_id);
+            head = (CircleImageView) itemView.findViewById(R.id.item_note_head);
         }
     }
 }

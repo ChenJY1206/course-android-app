@@ -3,11 +3,10 @@ package com.example.cx49085.recourse.community.data;
 import com.example.cx49085.recourse.R;
 import com.example.cx49085.recourse.community.data.entity.NoteData;
 import com.example.cx49085.recourse.community.data.entity.QuestionData;
-import com.example.cx49085.recourse.community.data.entity.VRAreaData;
+import com.example.cx49085.recourse.util.RandomUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 
 /**
@@ -15,41 +14,6 @@ import java.util.List;
  */
 
 public class CommunityManager {
-
-    private static int[] VRAreaImgs = {
-            R.drawable.vr_img1,
-            R.drawable.vr_img2,
-            R.drawable.vr_img3,
-            R.drawable.vr_img4,
-            R.drawable.vr_img5,
-            R.drawable.vr_img6
-    };
-    private static int[] VRAreaBgColor = {
-            R.color.light_blue,
-            R.color.light_red,
-            R.color.light_green,
-            R.color.light_purple,
-            R.color.light_yellow,
-            R.color.light_red_purple
-    };
-    private static String[] VRAreaNames = {
-            "金融交流专区",
-            "会计交流专区",
-            "经济交流专区",
-            "外贸交流专区",
-            "期货交流专区",
-            "证券交流专区"
-    };
-
-    private static String[] VRAreaNums = {
-            "21人参与",
-            "34人参与",
-            "12人参与",
-            "31人参与",
-            "28人参与",
-            "41人参与",
-    };
-
     private static String[] questionTitles = {
             "公司上市需要些什么条件和手续?流程是怎样的?？",
             "当今金融学前沿和热点问题有哪些？",
@@ -71,17 +35,6 @@ public class CommunityManager {
             "建立现代化经济体系,夯实迈向社会主义现代化强国的经济基础,必须加快完善社会主义市场经济体制。一是完善产权制度,实现产权有效激励；二是深化国有企业改革,推动国有资本做强做优做大；三是加快完善现代市场体系,激发各类市场主体活力；四是创新和完善宏观调控,促进经济平稳健康运行；五是加快建立现代财政制度,发挥好中央和地方两个积极性；",
             "金融市场还不够成熟,深度和广度不够。真正成熟的金融市场的标准是：好企业可以随时通过丰富的融资产品与渠道进行融资；长期投资者能够得到合适稳定的回报；市场价格基本合理；市场参与者遵守规则。但目前中国金融市场远远没有达到这些标准。决定人民币国际化关键的人民币“投资池”尚未形成；国内一级和二级市场、场内和场外市场、货币市场和资本市场等都存在不同程度的分割现象"
     };
-    private static int[] questionAnswerNum = {
-            13,
-            21,
-            6,
-            7,
-            88,
-            123,
-            11,
-            3
-    };
-
     private static String[] questionState = {
             "已解决",
             "待解决",
@@ -140,21 +93,22 @@ public class CommunityManager {
     };
 
 
-    public static List<VRAreaData> getVRAreaDatas() {
-        List<VRAreaData> l = new ArrayList<VRAreaData>();
-        for (int i = 0; i < VRAreaImgs.length; i++) {
-            l.add(new VRAreaData(VRAreaImgs[i], VRAreaNames[i], VRAreaNums[i],VRAreaBgColor[i]));
-        }
-        return l;
-    }
-    private static String usernames[] = {"熊猫","大象与蚂蚁","何必远方","不见海洋","围城","温柔月光","不忘记","面目",
-            "梨花","不归郞","一壶浊酒","佳人","江湖","醉里看花","雾里赏花","梦理","离人愁"};
-    private static String times[] = {"2018-3-5","2018-1-8","2017-11-18","2017-10-30","2017-10-27","2017-9-24","2017-5-14","2017-4-6","2017-1-8"};
-    private static int imgs[] = {R.drawable.question1,R.drawable.question2,R.drawable.question3,R.drawable.question4,R.drawable.question5,R.drawable.question6,R.drawable.question7,R.drawable.ic_mine_head,R.drawable.question1,};
+    //    public static List<VRAreaData> getVRAreaDatas() {
+//        List<VRAreaData> l = new ArrayList<VRAreaData>();
+//        for (int i = 0; i < VRAreaImgs.length; i++) {
+//            l.add(new VRAreaData(VRAreaImgs[i], VRAreaNames[i], VRAreaNums[i],VRAreaBgColor[i]));
+//        }
+//        return l;
+//    }
+    private static String usernames[] = {"熊猫", "大象与蚂蚁", "何必远方", "不见海洋", "围城", "温柔月光", "不忘记", "面目",
+            "梨花", "不归郞", "一壶浊酒", "佳人", "江湖", "醉里看花", "雾里赏花", "梦理", "离人愁"};
+    private static String times[] = {"2018-3-5", "2018-1-8", "2017-11-18", "2017-10-30", "2017-10-27", "2017-9-24", "2017-5-14", "2017-4-6", "2017-1-8"};
+    private static int imgs[] = {R.drawable.question1, R.drawable.question2, R.drawable.question3, R.drawable.question4, R.drawable.question5, R.drawable.question6, R.drawable.question7, R.drawable.ic_mine_head, R.drawable.question1,};
+
     public static List<QuestionData> getQuestionDatas() {
         List<QuestionData> l = new ArrayList<QuestionData>();
         for (int i = 0; i < questionTitles.length; i++) {
-            l.add(new QuestionData(usernames[i],questionTitles[i], questionAnswerNum[i], questionState[i],questionDetails[i],times[i],imgs[i]));
+            l.add(new QuestionData(usernames[i], questionTitles[i], RandomUtil.getRandom(2), questionState[i], questionDetails[i], times[i], imgs[i]));
         }
         return l;
     }
@@ -163,7 +117,7 @@ public class CommunityManager {
         List<NoteData> l = new ArrayList<NoteData>();
         for (int i = 0; i < noteTitles.length; i++) {
             //int img, String username, String time, String title, String info, int browseNum, int goodNum
-            l.add(new NoteData(imgs[i],usernames[i+8],times[i],noteTitles[i], noteInfo[i], noteBrowseNum[i], noteGoodNum[i]));
+            l.add(new NoteData(imgs[i], usernames[i + 8], times[i], noteTitles[i], noteInfo[i], noteBrowseNum[i], noteGoodNum[i]));
         }
         return l;
     }
