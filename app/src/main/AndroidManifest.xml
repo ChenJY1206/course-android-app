@@ -21,11 +21,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".mine.myinfo.Mine_info" />
-        <activity android:name=".login.Login"></activity>
-        <activity android:name=".login.adduser"></activity>
+        <activity android:name=".login.Login" />
+        <activity android:name=".login.adduser" />
         <activity
             android:name=".home.homeVideo.RecyclerViewActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity android:name=".community.OneQuestion"></activity>
     </application>
 
 </manifest>

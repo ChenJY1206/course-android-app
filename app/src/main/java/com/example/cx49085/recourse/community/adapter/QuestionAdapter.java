@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import com.example.cx49085.recourse.R;
 import com.example.cx49085.recourse.community.data.entity.QuestionData;
+import com.example.cx49085.recourse.util.OnRecyclerviewItemClickListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +28,12 @@ public class QuestionAdapter extends RecyclerView.Adapter {
     private Context context;
     private List<QuestionData> l;
 
+    public void setOnRecyclerviewItemClickListener(OnRecyclerviewItemClickListener onRecyclerviewItemClickListener) {
+        this.onRecyclerviewItemClickListener = onRecyclerviewItemClickListener;
+    }
+
+    OnRecyclerviewItemClickListener onRecyclerviewItemClickListener;
+
     public QuestionAdapter(Context context, List<QuestionData> l) {
         this.context = context;
         this.l = l;
@@ -36,7 +45,7 @@ public class QuestionAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ((ViewHolder) holder).title.setText(l.get(position).getTitle());
         ((ViewHolder) holder).state.setText(l.get(position).getState());
         ((ViewHolder) holder).answerNum.setText(String.valueOf(l.get(position).getAnswerNum()));
@@ -45,6 +54,14 @@ public class QuestionAdapter extends RecyclerView.Adapter {
         ((ViewHolder) holder).username.setText(String.valueOf(l.get(position).getUsername()));
         ((ViewHolder) holder).detail.setText(String.valueOf(l.get(position).getDetail()));
         ((ViewHolder) holder).img.setImageResource(l.get(position).getImg());
+        ((ViewHolder) holder).id.setText(String.valueOf(l.get(position).getId()));
+        ((ViewHolder) holder).detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRecyclerviewItemClickListener.onItemClickListener(v, position);
+            }
+        });
+
     }
 
     //下面两个方法提供给页面刷新和加载时调用
@@ -68,6 +85,7 @@ public class QuestionAdapter extends RecyclerView.Adapter {
     }
 
     private class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView id;
         private TextView title;
         private TextView state;
         private TextView answerNum;
@@ -78,6 +96,7 @@ public class QuestionAdapter extends RecyclerView.Adapter {
 
         public ViewHolder(View itemView) {
             super(itemView);
+            id = (TextView) itemView.findViewById(R.id.item_question_id);
             img = (CircleImageView) itemView.findViewById(R.id.item_icon_head);
             username = (TextView) itemView.findViewById(R.id.item_question_user_id);
             title = (TextView) itemView.findViewById(R.id.item_question_title);

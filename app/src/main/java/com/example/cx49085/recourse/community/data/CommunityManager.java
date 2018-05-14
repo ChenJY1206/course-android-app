@@ -103,7 +103,14 @@ public class CommunityManager {
     private static String usernames[] = {"熊猫", "大象与蚂蚁", "何必远方", "不见海洋", "围城", "温柔月光", "不忘记", "面目",
             "梨花", "不归郞", "一壶浊酒", "佳人", "江湖", "醉里看花", "雾里赏花", "梦理", "离人愁"};
     private static String times[] = {"2018-3-5", "2018-1-8", "2017-11-18", "2017-10-30", "2017-10-27", "2017-9-24", "2017-5-14", "2017-4-6", "2017-1-8"};
-    private static int imgs[] = {R.drawable.question1, R.drawable.question2, R.drawable.question3, R.drawable.question4, R.drawable.question5, R.drawable.question6, R.drawable.question7, R.drawable.ic_mine_head, R.drawable.question1,};
+    private static int imgs[] = {
+            R.drawable.question1, R.drawable.question2, R.drawable.question3, R.drawable.question4,
+            R.drawable.question5, R.drawable.question6, R.drawable.question7, R.drawable.ic_mine_head,
+            R.drawable.question1, R.drawable.question6, R.drawable.question3};
+
+    public static int getDrawable(int i) {
+        return imgs[i];
+    }
 
     public static List<QuestionData> getQuestionDatas() {
         List<QuestionData> l = new ArrayList<QuestionData>();

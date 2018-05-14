@@ -1,6 +1,7 @@
 package com.example.cx49085.recourse.community;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -11,9 +12,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.example.cx49085.recourse.community.data.CommunityManager;
 import com.example.cx49085.recourse.community.data.entity.QuestionData;
+import com.example.cx49085.recourse.community.data.entity.QuestionServiceData;
+import com.example.cx49085.recourse.home.homeVideo.RecyclerViewActivity;
+import com.example.cx49085.recourse.home.homeVideo.bean.CourseDataBean;
+import com.example.cx49085.recourse.home.homeVideo.bean.Video;
+import com.example.cx49085.recourse.home.homeVideo.util.DataUtil;
+import com.example.cx49085.recourse.util.DateUtils;
+import com.example.cx49085.recourse.util.OnRecyclerviewItemClickListener;
+import com.example.cx49085.recourse.util.RandomUtil;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
@@ -23,8 +37,12 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.example.cx49085.recourse.R;
 import com.example.cx49085.recourse.community.adapter.QuestionAdapter;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -53,11 +71,11 @@ public class QuestionFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_question, container, false);
         init(view);
         initRefresh(view);
-        setRv();
+        getData();
         return view;
     }
 
-    private void initRefresh(View view, List<QuestionData>) {
+    private void initRefresh(View view) {
         RefreshLayout refreshLayout = (RefreshLayout) view.findViewById(R.id.refreshLayout);
         //设置 Header 为 MaterialHeader
         refreshLayout.setRefreshHeader(new MaterialHeader(getActivity()));
@@ -65,7 +83,7 @@ public class QuestionFragment extends Fragment {
         refreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             public void onRefresh(RefreshLayout refreshlayout) {
-                quAdapter.refresh();
+                getData();
                 refreshlayout.finishRefresh();//传入false表示刷新失败
             }
         });
@@ -82,6 +100,7 @@ public class QuestionFragment extends Fragment {
     private Handler handler = new Handler();
     private static final String TAG = "QuestionFragment";
     String result;
+
     private void getData() {
         new Thread(new Runnable() {
             @Override
@@ -104,18 +123,57 @@ public class QuestionFragment extends Fragment {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        init();
+                        setRv(getQuestionList());
                     }
                 });
             }
         }).start();
     }
 
-    private QuestionAdapter quAdapter;
+    private List<QuestionData> getQuestionList() {
+        List<QuestionServiceData> listPerson = new ArrayList<>();
+        List<QuestionData> list = new ArrayList<>();
+        if (result != null) {
+            Map mapTypes = JSON.parseObject(result);
+            Log.v(TAG, "map:-----" + mapTypes.get("result"));
+            listPerson = JSON.parseArray(mapTypes.get("result") + "", QuestionServiceData.class);
+        } else
+            Toast.makeText(getActivity(), " result Null", Toast.LENGTH_SHORT).show();
+        for (QuestionServiceData x :
+                listPerson) {
+            QuestionData temp = new QuestionData();
+            temp.setTitle(x.getContent());
+            temp.setAnswerNum(RandomUtil.getRandom(2));
+            temp.setDetail(x.getContent());
+            temp.setState("正在解答");
+            temp.setUsername(x.getUseraccount());
+            temp.setTime(DateUtils.stampToDate(Long.parseLong(x.getTime())));
+            temp.setImg(CommunityManager.getDrawable(RandomUtil.getRandom(1)));
+            temp.setId(x.getTopicId());
+            list.add(temp);
+        }
+        return list;
+    }
 
-    private void setRv() {
-        rv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-        quAdapter = new QuestionAdapter(getActivity(), getQuestionDatas());
+    private QuestionAdapter quAdapter;
+    private GridLayoutManager rvLayoutManager;
+
+    private void setRv(List<QuestionData> list) {
+        rvLayoutManager = new GridLayoutManager(getActivity(), 1);
+        rv.setLayoutManager(rvLayoutManager);
+        quAdapter = new QuestionAdapter(getActivity(), list);
+        quAdapter.setOnRecyclerviewItemClickListener(new OnRecyclerviewItemClickListener() {
+            @Override
+            public void onItemClickListener(View v, int position) {
+                RecyclerView.ViewHolder holder = rv.findViewHolderForAdapterPosition(position);
+                String topic_id = ((TextView) holder.itemView.findViewById(R.id.item_question_id)).getText().toString();
+
+                Log.v(TAG, "topic_id-------------" + topic_id);
+                Intent intent = new Intent(getActivity(), OneQuestion.class);
+                intent.putExtra("courseName", topic_id);
+                startActivity(intent);
+            }
+        });
         rv.setAdapter(quAdapter);
     }
 

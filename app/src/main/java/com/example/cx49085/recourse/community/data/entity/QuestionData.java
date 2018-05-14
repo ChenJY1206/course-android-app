@@ -12,6 +12,15 @@ public class QuestionData {
     private String detail;
     private String time;
     private int img;
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public QuestionData(String username, String title, int answerNum, String state, String detail, String time, int img) {
         this.username = username;
@@ -21,6 +30,9 @@ public class QuestionData {
         this.detail = detail;
         this.time = time;
         this.img = img;
+    }
+
+    public QuestionData() {
     }
 
     public String getUsername() {
