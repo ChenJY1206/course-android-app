@@ -28,4 +28,18 @@
     <include
         android:id="@+id/search_main"
         layout="@layout/search_main" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="450dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/vp_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/search_main"
+        app:srcCompat="@drawable/add" />
 </android.support.constraint.ConstraintLayout>
