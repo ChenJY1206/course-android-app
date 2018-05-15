@@ -1,12 +1,19 @@
 package com.example.cx49085.recourse;
 
+import android.content.DialogInterface;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -32,6 +39,27 @@ public class MainActivity extends AppCompatActivity {
         //viewPager
         setVp();
         //
+        FloatingActionButton fab=findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder= new AlertDialog.Builder(MainActivity.this);
+                LayoutInflater inflater= LayoutInflater.from(MainActivity.this);
+                View viewDialog=inflater.inflate(R.layout.insert,null);
+                EditText content=(EditText) viewDialog.findViewById(R.id.content);
+                TextView useraccount=(TextView) viewDialog.findViewById(R.id.useraccount);
+                TimePicker time=(TimePicker) viewDialog.findViewById(R.id.time);
+                builder.setView(viewDialog);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                builder.setNegativeButton("Canel",null);
+                builder.create().show();
+            }
+        });
     }
 
     private void setVp() {
