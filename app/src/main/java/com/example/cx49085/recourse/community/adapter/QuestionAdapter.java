@@ -2,6 +2,7 @@ package com.example.cx49085.recourse.community.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +12,9 @@ import com.example.cx49085.recourse.R;
 import com.example.cx49085.recourse.community.data.entity.QuestionData;
 import com.example.cx49085.recourse.util.OnRecyclerviewItemClickListener;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
 
 /**
  * Created by 10919 on 2018/4/6/006.
@@ -25,8 +22,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class QuestionAdapter extends RecyclerView.Adapter {
 
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public void setL(List<QuestionData> l) {
+        this.l = l;
+    }
+
     private Context context;
     private List<QuestionData> l;
+    private final static String TAG = "QuestionAdpater";
 
     public void setOnRecyclerviewItemClickListener(OnRecyclerviewItemClickListener onRecyclerviewItemClickListener) {
         this.onRecyclerviewItemClickListener = onRecyclerviewItemClickListener;
@@ -41,11 +47,21 @@ public class QuestionAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_question, null));
+        View view = LayoutInflater.from(context).inflate(R.layout.item_question, null);
+        RecyclerView.ViewHolder viewHolder = new ViewHolder(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRecyclerviewItemClickListener.onItemClickListener(v, (Integer) v.getTag());
+            }
+        });
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        //将position保存在itemView的Tag中，以便点击时进行获取
+        ((ViewHolder) holder).itemView.setTag(position);
         ((ViewHolder) holder).title.setText(l.get(position).getTitle());
         ((ViewHolder) holder).state.setText(l.get(position).getState());
         ((ViewHolder) holder).answerNum.setText(String.valueOf(l.get(position).getAnswerNum()));
@@ -54,15 +70,12 @@ public class QuestionAdapter extends RecyclerView.Adapter {
         ((ViewHolder) holder).username.setText(String.valueOf(l.get(position).getUsername()));
         ((ViewHolder) holder).detail.setText(String.valueOf(l.get(position).getDetail()));
         ((ViewHolder) holder).img.setImageResource(l.get(position).getImg());
+
+        Log.e(TAG, "imgRes ---------------" + l.get(position).getImg());
         ((ViewHolder) holder).id.setText(String.valueOf(l.get(position).getId()));
-        ((ViewHolder) holder).detail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onRecyclerviewItemClickListener.onItemClickListener(v, position);
-            }
-        });
 
     }
+
 
     //下面两个方法提供给页面刷新和加载时调用
     public void add(List<QuestionData> addlist) {

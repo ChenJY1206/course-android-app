@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.cx49085.recourse.R;
 import com.example.cx49085.recourse.home.data.entity.RecommendData;
+import com.example.cx49085.recourse.mine.adapter.Rv23Adapter;
 import com.example.cx49085.recourse.util.GlideRoundTransform;
 import com.example.cx49085.recourse.util.OnRecyclerviewItemClickListener;
 
@@ -49,22 +50,24 @@ public class RecommedAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_recommend_main, null));
+        View view = LayoutInflater.from(context).inflate(R.layout.item_recommend_main, null);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                monRecyclerviewItemClickListener.onItemClickListener(v, (Integer) v.getTag());
+            }
+        });
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {//将position保存在itemView的Tag中，以便点击时进行获取
+        ((ViewHolder) holder).itemView.setTag(position);
         ((ViewHolder) holder).tv.setText(recommendDatas.get(position).getTitle());
         ((ViewHolder) holder).course_num_tv.setText(recommendDatas.get(position).getCourse_num());
         ((ViewHolder) holder).course_detail_tv.setText(recommendDatas.get(position).getCourse_introduction());
         RequestOptions requestOptions = getRequestOptions();
         Glide.with(context).load(recommendDatas.get(position).getImg()).apply(getRequestOptions().bitmapTransform(new GlideRoundTransform(4))).into(((ViewHolder) holder).iv);
-        ((ViewHolder) holder).iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                monRecyclerviewItemClickListener.onItemClickListener(v, position);
-            }
-        });
     }
 
     @Override

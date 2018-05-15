@@ -59,7 +59,18 @@ public class MineFragment extends Fragment {
     private void setRv4() {
         rv4.setLayoutManager(new GridLayoutManager(getActivity(), 1));
         List<Rv23Data> rv23DataList = Rv23DataManager.getRv4DataList();
-        rv4.setAdapter(new Rv23Adapter(getActivity(), rv23DataList));
+        Rv23Adapter rv23Adapter = new Rv23Adapter(getActivity(), rv23DataList);
+        rv23Adapter.setmOnRecyclerviewItemClickListener(new OnRecyclerviewItemClickListener() {
+            @Override
+            public void onItemClickListener(View v, int position) {
+                //这里的view就是我们点击的view  position就是点击的position
+                Toast.makeText(getContext(), " 点击了 Rv4 " + position, Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), Mine_info.class));
+                //  getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+
+            }
+        });
+        rv4.setAdapter(rv23Adapter);
         rv4.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
     }
 
@@ -76,7 +87,7 @@ public class MineFragment extends Fragment {
             public void onItemClickListener(View v, int position) {
                 //这里的view就是我们点击的view  position就是点击的position
                 Toast.makeText(getContext(), " 点击了 Rv3 " + position, Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getActivity(),Mine_info.class));
+                startActivity(new Intent(getActivity(), Mine_info.class));
                 //  getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 
             }
@@ -98,8 +109,8 @@ public class MineFragment extends Fragment {
             public void onItemClickListener(View v, int position) {
                 //这里的view就是我们点击的view  position就是点击的position
                 Toast.makeText(getContext(), " 点击了Rv2 " + position, Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getActivity(),Mine_info.class));
-              //  getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                startActivity(new Intent(getActivity(), Mine_info.class));
+                //  getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 
             }
         });
@@ -117,7 +128,7 @@ public class MineFragment extends Fragment {
             public void onItemClickListener(View v, int position) {
                 //这里的view就是我们点击的view  position就是点击的position
                 Toast.makeText(getContext(), " 点击了 Rv1:" + position, Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getActivity(),Mine_info.class));
+                startActivity(new Intent(getActivity(), Mine_info.class));
                 //  getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 
             }

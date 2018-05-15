@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.cx49085.recourse.R;
+import com.example.cx49085.recourse.community.adapter.QuestionAdapter;
 import com.example.cx49085.recourse.mine.data.entity.Rv23Data;
 import com.example.cx49085.recourse.util.OnRecyclerviewItemClickListener;
 
@@ -38,7 +39,8 @@ public class Rv23Adapter extends RecyclerView.Adapter {
         this.context = context;
         this.list = list;
     }
-    public Rv23Adapter(Context context, List<Rv23Data> list,OnRecyclerviewItemClickListener mOnRecyclerviewItemClickListener) {
+
+    public Rv23Adapter(Context context, List<Rv23Data> list, OnRecyclerviewItemClickListener mOnRecyclerviewItemClickListener) {
         this.context = context;
         this.list = list;
         this.mOnRecyclerviewItemClickListener = mOnRecyclerviewItemClickListener;
@@ -48,18 +50,20 @@ public class Rv23Adapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_rv23_mine, null);
         //这里 我们可以拿到点击的item的view 对象，所以在这里给view设置点击监听，
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //将监听传递给自定义接口
+                mOnRecyclerviewItemClickListener.onItemClickListener(v, (Integer) v.getTag());
+            }
+        });
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        ((ViewHolder) holder).tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //将监听传递给自定义接口
-                mOnRecyclerviewItemClickListener.onItemClickListener(v,position);
-            }
-        });
+        //将position保存在itemView的Tag中，以便点击时进行获取
+        ((Rv23Adapter.ViewHolder) holder).itemView.setTag(position);
         ((Rv23Adapter.ViewHolder) holder).tv.setText(list.get(position).getTitle());
         Glide.with(context).load(list.get(position).getImg()).apply(getRequestOptions()).into(((Rv23Adapter.ViewHolder) holder).iv);
 //        ((Rv23Adapter.ViewHolder)holder).tv.setText(R.string.name_hobby);

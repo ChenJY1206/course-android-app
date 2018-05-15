@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.cx49085.recourse.R;
+import com.example.cx49085.recourse.community.adapter.QuestionAdapter;
 import com.example.cx49085.recourse.mine.data.entity.Rv1Data;
 import com.example.cx49085.recourse.util.OnRecyclerviewItemClickListener;
 
@@ -47,21 +48,23 @@ public class Rv1Adapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_rv1_mine, null));
+        View v = LayoutInflater.from(context).inflate(R.layout.item_rv1_mine, null);
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //将监听传递给自定义接口
+                mOnRecyclerviewItemClickListener.onItemClickListener(v, (Integer) v.getTag());
+            }
+        });
+        return new ViewHolder(v);
 
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
+        ((ViewHolder) holder).itemView.setTag(position);
         ((ViewHolder) holder).tv.setText(rv1DataList.get(position).getTitle());
-        ((ViewHolder) holder).tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //将监听传递给自定义接口
-                mOnRecyclerviewItemClickListener.onItemClickListener(v,position);
-            }
-        });
         Glide.with(context).load(rv1DataList.get(position).getImg()).apply(getRequestOptions()).into(((ViewHolder) holder).iv);
 
     }

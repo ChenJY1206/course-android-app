@@ -32,6 +32,20 @@ public class QuestionData {
         this.img = img;
     }
 
+    @Override
+    public String toString() {
+        return "QuestionData{" +
+                "username='" + username + '\'' +
+                ", title='" + title + '\'' +
+                ", answerNum=" + answerNum +
+                ", state='" + state + '\'' +
+                ", detail='" + detail + '\'' +
+                ", time='" + time + '\'' +
+                ", img=" + img +
+                ", id='" + id + '\'' +
+                '}';
+    }
+
     public QuestionData() {
     }
 
