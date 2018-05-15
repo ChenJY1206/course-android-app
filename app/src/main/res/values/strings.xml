@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">recourse</string>
+    <string name="app_name">ScrumDemo</string>
     <string name="name_nav1">首页</string>
     <string name="name_nav2">社区</string>
     <string name="name_nav3">下载</string>
