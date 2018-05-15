@@ -134,7 +134,6 @@ public class OneQuestionActivity extends AppCompatActivity {
                 listPerson) {
             x.setTime(DateUtils.stampToDate(Long.parseLong(x.getTime())));
             x.setTopicId(CommunityManager.getDrawable(RandomUtil.getRandom(1)));
-            Log.v(TAG, "temp:-----" + x.toString());
         }
       /*  for (OneQuestionData x :
                 listPerson) {
@@ -150,8 +149,6 @@ public class OneQuestionActivity extends AppCompatActivity {
             Log.v(TAG, "temp:-----" + temp.toString());
             list.add(temp);
         }*/
-
-        Log.v(TAG, "list:-----" + listPerson.size());
         return listPerson;
     }
 
@@ -160,7 +157,6 @@ public class OneQuestionActivity extends AppCompatActivity {
 
         OneQuestionAdapter quAdapter = new OneQuestionAdapter(this, list);
         GridLayoutManager rvLayoutManager = new GridLayoutManager(this, 1);
-        Log.v(TAG, "setRvlist:-----" + list.size());
         rv.setLayoutManager(rvLayoutManager);
         rv.setAdapter(quAdapter);
     }

@@ -39,27 +39,6 @@ public class MainActivity extends AppCompatActivity {
         //viewPager
         setVp();
         //
-        FloatingActionButton fab=findViewById(R.id.floatingActionButton);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder= new AlertDialog.Builder(MainActivity.this);
-                LayoutInflater inflater= LayoutInflater.from(MainActivity.this);
-                View viewDialog=inflater.inflate(R.layout.insert,null);
-                EditText content=(EditText) viewDialog.findViewById(R.id.content);
-                TextView useraccount=(TextView) viewDialog.findViewById(R.id.useraccount);
-                TimePicker time=(TimePicker) viewDialog.findViewById(R.id.time);
-                builder.setView(viewDialog);
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-                builder.setNegativeButton("Canel",null);
-                builder.create().show();
-            }
-        });
     }
 
     private void setVp() {

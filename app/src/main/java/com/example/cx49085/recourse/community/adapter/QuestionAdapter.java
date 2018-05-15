@@ -70,8 +70,6 @@ public class QuestionAdapter extends RecyclerView.Adapter {
         ((ViewHolder) holder).username.setText(String.valueOf(l.get(position).getUsername()));
         ((ViewHolder) holder).detail.setText(String.valueOf(l.get(position).getDetail()));
         ((ViewHolder) holder).img.setImageResource(l.get(position).getImg());
-
-        Log.e(TAG, "imgRes ---------------" + l.get(position).getImg());
         ((ViewHolder) holder).id.setText(String.valueOf(l.get(position).getId()));
 
     }

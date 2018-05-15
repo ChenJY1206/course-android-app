@@ -1,21 +1,28 @@
 package com.example.cx49085.recourse.community;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 
 import com.alibaba.fastjson.JSON;
+import com.example.cx49085.recourse.MainActivity;
 import com.example.cx49085.recourse.community.data.CommunityManager;
 import com.example.cx49085.recourse.community.data.entity.QuestionData;
 import com.example.cx49085.recourse.community.data.entity.QuestionServiceData;
@@ -48,6 +55,7 @@ import okhttp3.Response;
  */
 public class QuestionFragment extends Fragment {
     private RecyclerView rv;
+    private FloatingActionButton fab;
 
     public QuestionFragment() {
         // Required empty public constructor
@@ -64,7 +72,8 @@ public class QuestionFragment extends Fragment {
         return view;
     }
 
-    private void initRefresh(View view) {
+
+    private void initRefresh(final View view) {
         RefreshLayout refreshLayout = (RefreshLayout) view.findViewById(R.id.refreshLayout);
         //设置 Header 为 MaterialHeader
         refreshLayout.setRefreshHeader(new MaterialHeader(getActivity()));
@@ -166,6 +175,7 @@ public class QuestionFragment extends Fragment {
         });
         rv.setAdapter(quAdapter);
     }
+
 
     private void init(View view) {
         rv = (RecyclerView) view.findViewById(R.id.question_rv);

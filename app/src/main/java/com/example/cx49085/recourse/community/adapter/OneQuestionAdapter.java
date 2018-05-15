@@ -27,7 +27,6 @@ public class OneQuestionAdapter extends RecyclerView.Adapter {
     private static final String TAG = "OneQuestionAdapter";
 
     public OneQuestionAdapter(Context context, List<OneQuestionData> list) {
-        Log.v(TAG, "getItemCount ---------------" + list.get(0).toString());
         this.context = context;
         this.l = list;
     }
@@ -59,7 +58,6 @@ public class OneQuestionAdapter extends RecyclerView.Adapter {
         ((ViewHolder) holder).time.setText(String.valueOf(l.get(position).getTime()));
         ((ViewHolder) holder).username.setText(String.valueOf(l.get(position).getUseraccount()));
         ((ViewHolder) holder).detail.setText(String.valueOf(l.get(position).getContent()));
-        Log.v(TAG, "imgRes ---------------" + l.get(position).getTopicId());
         ((ViewHolder) holder).img.setImageResource(l.get(position).getTopicId());
 
     }

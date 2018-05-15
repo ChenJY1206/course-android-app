@@ -1,14 +1,21 @@
 package com.example.cx49085.recourse.community;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.example.cx49085.recourse.R;
 
@@ -18,8 +25,10 @@ import com.example.cx49085.recourse.R;
  */
 public class CommunityFragment extends Fragment {
 
+    private FloatingActionButton fab;
     private ViewPager vp;
     private TabLayout tab;
+
     public CommunityFragment() {
         // Required empty public constructor
     }
@@ -30,6 +39,7 @@ public class CommunityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_community, container, false);
         init(view);
+        initinsert(view);
         setVp();
         setTab();
         return view;
@@ -54,12 +64,37 @@ public class CommunityFragment extends Fragment {
         });
     }
 
+    private void initinsert(View view) {
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                LayoutInflater inflater = LayoutInflater.from(getActivity());
+                View viewDialog = inflater.inflate(R.layout.question_insert, null);
+                /*
+                EditText content = (EditText) viewDialog.findViewById(R.id.content);
+                TextView useraccount = (TextView) viewDialog.findViewById(R.id.useraccount);
+                */
+                TimePicker time = (TimePicker) viewDialog.findViewById(R.id.time);
+                builder.setView(viewDialog);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                builder.setNegativeButton("Canel", null);
+                builder.create().show();
+            }
+        });
+    }
+
     private void setVp() {
         vp.setOffscreenPageLimit(2);
         final Fragment[] fgs = {
                 new QuestionFragment(),
                 new NoteFragment(),
-             //   new VRAreaFragment()
+                //   new VRAreaFragment()
         };
         vp.setAdapter(new FragmentStatePagerAdapter(getActivity().getSupportFragmentManager()) {
             @Override
@@ -90,9 +125,12 @@ public class CommunityFragment extends Fragment {
         });
     }
 
+    private final static String TAG = "CommunityFragment";
+
     private void init(View view) {
-        vp = (ViewPager)view.findViewById(R.id.vp_community);
-        tab = (TabLayout)view.findViewById(R.id.tab_community);
+        vp = (ViewPager) view.findViewById(R.id.vp_community);
+        tab = (TabLayout) view.findViewById(R.id.tab_community);
+        fab = (FloatingActionButton) view.findViewById(R.id.floatingActionButton2);
     }
 
 }
